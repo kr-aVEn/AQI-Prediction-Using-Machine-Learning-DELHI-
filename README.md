@@ -1,47 +1,125 @@
-# AQI-Prediction-Using-Machine-Learning-DELHI-
-A machine learning project to predict Air Quality Index (AQI) using pollutant concentration data. The project compares Linear Regression, Decision Tree, and Random Forest models and analyzes the impact of temporal and holiday factors on air quality. focusing on Delhi
-This project focuses on predicting the Air Quality Index (AQI) using daily air pollutant concentrations such as PM2.5, PM10, NO₂, SO₂, CO, and Ozone. Multiple machine learning models including Linear Regression, Decision Tree, and Random Forest are trained and evaluated. The study also analyzes the effect of holidays and weekends on AQI and demonstrates that pollutant levels are the primary drivers of air quality. Random Forest achieved the best performance with high predictive accuracy.
-# AQI Prediction Using Machine Learning
+# AQI Prediction and Dual Classification System
+
+This project implements a **robust machine learning system** for predicting **Air Quality Index (AQI)** and classifying air quality conditions using **two complementary approaches**:
+
+1. **Rule-based classification derived from predicted AQI**
+2. **Machine learning–based classification using Random Forest**
+
+The dual-classification design improves reliability, interpretability, and real-world applicability.
+
+---
+
+## 📌 Problem Statement
+
+Air pollution monitoring requires both **accurate AQI prediction** and **clear air quality categorization**. This project predicts numerical AQI values from pollutant concentrations and classifies air quality using both standard thresholds and a learned classifier.
+
+---
+
+## 📊 Dataset
+
+* Daily air pollutant measurements:
+
+  * PM2.5, PM10, NO₂, SO₂, CO, Ozone
+* Target variables:
+
+  * AQI (regression)
+  * AQI Quality Category (classification)
+* Time-series dataset with daily records
+
+---
+
+## 🧠 Methodology
+
+### Notebook 1: EDA & Feature Engineering
+
+* Data cleaning and missing value handling
+* Creation of AQI quality labels using standard thresholds
+* Exploratory data analysis and class distribution study
+
+### Notebook 2: Model Comparison & Stability Analysis
+
+* Regression models evaluated:
+
+  * Linear Regression
+  * Decision Tree Regressor
+  * Gradient Boosting Regressor
+  * Random Forest Regressor
+* Metrics:
+
+  * MAE, RMSE, R²
+* Cross-validation stability analysis
+* Time-series error drift analysis
+* **Random Forest selected** due to superior robustness and stability
+
+### Notebook 3: Final Dual-Classification Pipeline
+
+* AQI prediction using Random Forest regression
+* **Rule-based AQI classification** using government-defined thresholds
+* **Random Forest–based AQI classification** for data-driven comparison
+* Accuracy comparison between both classification approaches
+* Real-time prediction logic
+
+---
+
+## 🔁 Dual Classification Strategy
+
+### 1️⃣ Rule-Based Classification (Primary)
+
+* Derived directly from predicted AQI
+* Uses standard AQI thresholds
+* Highly interpretable and policy-aligned
+* Robust to class imbalance
+
+### 2️⃣ ML-Based Classification (Secondary)
+
+* Random Forest multi-class classifier
+* Learns soft boundaries between AQI categories
+* Provides probability confidence for each class
+* Used for comparison and analytical insight
+
+---
+
+## 📈 Final Model Performance
+
+* AQI Regression:
+
+  * R² ≈ 0.90
+  * RMSE within acceptable environmental limits
+* Classification:
+
+  * ML-based classifier achieves higher categorical accuracy
+  * Rule-based classification ensures semantic correctness
+
+---
+
+## 🛠 Project Structure
+
+```
+AQI-Prediction-ML/
+│
+├── data/
+│   ├── final_dataset.csv
+│   └── cleaned_aqi_data.csv
+│
+├── notebooks/
+│   ├── 01_EDA_and_Feature_Engineering.ipynb
+│   ├── 02_Model_Comparison_and_Stability.ipynb
+│   └── 03_Final_Regression_RuleBased_Classification.ipynb
+│
+├── src/
+│   ├── train_models.py
+│   └── predict_realtime.py
+│
+├── models/
+│   ├── aqi_regression_model.pkl
+│   ├── aqi_classification_model.pkl
+│   └── features.pkl
+│
+├── results/
+│   └── plots and evaluation figures
+│
+├── README.md
+└── requirements.txt
+```
 
 
-## 📊 Dataset Description
-The dataset contains daily records of:
-- PM2.5 (µg/m³)
-- PM10 (µg/m³)
-- NO₂ (µg/m³)
-- SO₂ (µg/m³)
-- CO (mg/m³)
-- Ozone (µg/m³)
-- Holiday indicator (0 = Working day, 1 = Holiday)
-- Day type (Weekend / Weekday)
-- Air Quality Index (AQI)
-
-## 🎯 Objective
-- Predict AQI using pollutant concentrations
-- Analyze the effect of holidays and weekends on AQI
-- Compare machine learning models
-- Improve prediction accuracy using ensemble methods
-
-## 🛠️ Models Used
-- Linear Regression
-- Decision Tree Regressor
-- Random Forest Regressor
-
-## 📈 Model Performance
-
-| Model | RMSE | MAE | R² |
-|------|------|------|------|
-| Linear Regression | 38.13 | 26.85 | 0.888 |
-| Decision Tree | 32.13 | 20.54 | 0.920 |
-| Random Forest | **28.92** | **18.58** | **0.936** |
-
-## 🧠 Key Findings
-- Pollutant concentrations are strong predictors of AQI
-- Holidays and weekends have minimal impact on AQI
-- Random Forest outperformed other models due to its ability to capture non-linear relationships
-
-## 🧪 Tools & Libraries
-- Python
-- Pandas, NumPy
-- Matplotlib, Seaborn
-- Scikit-learn
